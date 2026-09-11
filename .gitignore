@@ -1,0 +1,11 @@
+## .NET build output
+**/bin/
+**/obj/
+
+## IDE files
+.vs/
+*.user
+*.suo
+
+## Local tooling and logs
+*.log
