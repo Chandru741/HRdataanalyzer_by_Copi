@@ -1,0 +1,4 @@
+using Xunit;
+using HrDataAnalyzer.Models;using HrDataAnalyzer.Services;
+namespace HrDataAnalyzer.Tests;
+public class CoreTests{[Fact]public void Csv_import_skips_invalid_rows(){var r=new DataImportService().ParseCsv("id,name,department,hireDate,salary,performanceScore\n1,A,Eng,2024-01-01,10,80\n2,B,Eng,nope,10,80");Assert.Single(r.Employees);Assert.Single(r.Warnings);}[Fact]public void Median_is_calculated(){var a=new AnalyticsService();var e=new[]{new Employee("1","a","D","R","L","Full-time",new(2020,1,1),10,70,true),new Employee("2","b","D","R","L","Full-time",new(2020,1,1),30,80,true)};Assert.Equal(20,a.Summarize(e).MedianSalary);}[Fact]public void Filters_are_case_insensitive(){var e=new Employee("1","A","Engineering","R","L","Full-time",new(2020,1,1),50,70,true);Assert.Single(new AnalyticsService().Filter(new[]{e},new(Department:"engineering")));}}
